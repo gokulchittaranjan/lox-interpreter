@@ -40,7 +40,7 @@ def main():
             elif ch == "-":
                 ch_name = "MINUS"
             elif ch == ";":
-                ch_name = "MINUS"
+                ch_name = "SEMICOLON"
             elif ch == "*":
                 ch_name = "STAR"
             else:
