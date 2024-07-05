@@ -2,7 +2,7 @@ import sys
 
 
 def main():
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
+
     print("Logs from your program will appear here!", file=sys.stderr)
 
     if len(sys.argv) < 3:
@@ -172,6 +172,7 @@ def main():
             else:
                 toks.append(f'NUMBER {number} {float(number)}')
         if inside_identifier:
+            identifier = "".join(identifier)
             if identifier in reserved_keywords:
                 toks.append(f'{identifier.upper()} {identifier} null')    
             else:
