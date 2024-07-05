@@ -29,7 +29,7 @@ def main():
                 ch_name = "RIGHT_PAREN"
             elif ch == "{":
                 ch_name = "LEFT_BRACE"
-            elif ch == "{":
+            elif ch == "}":
                 ch_name = "RIGHT_BRACE"
             else:
                 continue
