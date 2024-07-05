@@ -27,6 +27,10 @@ def main():
                 ch_name = "LEFT_PAREN"
             elif ch == ")":
                 ch_name = "RIGHT_PAREN"
+            elif ch == "{":
+                ch_name = "LEFT_BRACE"
+            elif ch == "{":
+                ch_name = "RIGHT_BRACE"
             else:
                 continue
             print(f"{ch_name} {ch} null")
