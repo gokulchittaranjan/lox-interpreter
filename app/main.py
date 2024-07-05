@@ -26,6 +26,9 @@ def main():
         line_no = 1
         ptr = 0
         inside_comment = False
+        inside_string = False
+        string_start_line = None
+        literal = []
         while ptr < len(file_contents):
 
             ch = file_contents[ptr]
@@ -35,6 +38,17 @@ def main():
                 inside_comment = False
                 ptr += 1
                 continue
+            if inside_string:
+                if ch != '"':
+                    literal.append(ch)
+                else:
+                    string = ''.join(literal)
+                    toks.append(f'STRING "{string}" {string}')
+                    inside_string = False
+                    literal = []
+                ptr += 1
+                continue
+                
             if inside_comment:
                 ch = ""
             if ch == "(":
@@ -87,6 +101,10 @@ def main():
                     ch = ""
                 else:
                     ch_name = "SLASH"
+            elif ch == '"':
+                inside_string = True
+                ptr += 1
+                continue
             elif ch == " " or ch == "\t":
                 ptr += 1
                 continue
@@ -100,7 +118,9 @@ def main():
                 toks.append(f"{ch_name} {ch} null")
             else:
                 ptr += 1
-
+        if inside_string:
+            errs.append(f"[line {line_no}] Error: Unterminated string.")
+            exit_code = 65
 
         toks.append("EOF  null") # Placeholder, remove this line when implementing the scanner
         print("\n".join(errs), file=sys.stderr)
