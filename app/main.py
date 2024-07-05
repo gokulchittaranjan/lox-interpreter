@@ -48,6 +48,7 @@ def main():
                 line_no += 1
             else:
                 print(f"[line {line_no}] Error: Unexpected character: {ch}")
+                continue
             print(f"{ch_name} {ch} null")
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
     else:
