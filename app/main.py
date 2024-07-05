@@ -25,6 +25,7 @@ def main():
     if file_contents:
         line_no = 1
         ptr = 0
+        inside_comment = False
         while ptr < len(file_contents):
             ch = file_contents[ptr]
             ch_name = ""
@@ -75,12 +76,19 @@ def main():
                     ch = ">="
                 else:
                     ch_name = "GREATER"
+            elif ch == "/":
+                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
+                    inside_comment = True
+                else:
+                    ch_name = "SLASH"
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
                 ptr += 1
                 continue
             ptr += len(ch)
+            if inside_comment:
+                continue
             toks.append(f"{ch_name} {ch} null")
 
 
