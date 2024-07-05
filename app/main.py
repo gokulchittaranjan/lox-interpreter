@@ -92,6 +92,9 @@ def main():
                 exit_code = 65
                 ptr += 1
                 continue
+            elif ch == " " or ch == "\t":
+                ptr += 1
+                continue
             if len(ch) > 0:
                 ptr += len(ch)
                 toks.append(f"{ch_name} {ch} null")
