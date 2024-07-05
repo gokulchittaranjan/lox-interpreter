@@ -18,7 +18,7 @@ def main():
 
     with open(filename) as file:
         file_contents = file.read()
-
+    exit_code = 0
     # Uncomment this block to pass the first stage
     if file_contents:
         line_no = 1
@@ -48,11 +48,13 @@ def main():
                 line_no += 1
             else:
                 print(f"[line {line_no}] Error: Unexpected character: {ch}")
+                exit_code = 65
                 continue
             print(f"{ch_name} {ch} null")
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
     else:
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
+    exit(exit_code)
 
 
 if __name__ == "__main__":
