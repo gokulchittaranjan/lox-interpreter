@@ -27,8 +27,16 @@ def main():
         ptr = 0
         inside_comment = False
         while ptr < len(file_contents):
+
             ch = file_contents[ptr]
             ch_name = ""
+            if ch == "\n":
+                line_no += 1
+                inside_comment = False
+                ptr += 1
+                continue
+            if inside_comment:
+                ch = ""
             if ch == "(":
                 ch_name = "LEFT_PAREN"
             elif ch == ")":
@@ -49,9 +57,6 @@ def main():
                 ch_name = "SEMICOLON"
             elif ch == "*":
                 ch_name = "STAR"
-            elif ch == "\n":
-                line_no += 1
-                continue
             elif ch == "=":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "EQUAL_EQUAL"
@@ -79,17 +84,19 @@ def main():
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
                     inside_comment = True
+                    ch = ""
                 else:
                     ch_name = "SLASH"
-            else:
+            elif ch != "":
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
                 ptr += 1
                 continue
-            ptr += len(ch)
-            if inside_comment:
-                continue
-            toks.append(f"{ch_name} {ch} null")
+            if len(ch) > 0:
+                ptr += len(ch)
+                toks.append(f"{ch_name} {ch} null")
+            else:
+                ptr += 1
 
 
         toks.append("EOF  null") # Placeholder, remove this line when implementing the scanner
