@@ -47,10 +47,7 @@ def main():
                     literal.append(ch)
                 else:
                     string = ''.join(literal)
-                    if string in reserved_keywords:
-                        toks.append(f'{string.upper()} {string} null')    
-                    else:
-                        toks.append(f'STRING "{string}" {string}')
+                    toks.append(f'STRING "{string}" {string}')
                     inside_string = False
                     literal = []
                 ptr += 1
@@ -78,7 +75,11 @@ def main():
                     continue
                 else:
                     inside_identifier = False
-                    toks.append(f'IDENTIFIER {"".join(identifier)} null')
+                    identifier = "".join(identifier)
+                    if identifier in reserved_keywords:
+                        toks.append(f'{identifier.upper()} {identifier} null')    
+                    else:
+                        toks.append(f'IDENTIFIER {identifier} null')
                     identifier = []
             if ch == "(":
                 ch_name = "LEFT_PAREN"
@@ -171,7 +172,10 @@ def main():
             else:
                 toks.append(f'NUMBER {number} {float(number)}')
         if inside_identifier:
-            toks.append(f"IDENTIFIER {''.join(identifier)} null")
+            if identifier in reserved_keywords:
+                toks.append(f'{identifier.upper()} {identifier} null')    
+            else:
+                toks.append(f'IDENTIFIER {identifier} null')
         toks.append("EOF  null") # Placeholder, remove this line when implementing the scanner
         print("\n".join(errs), file=sys.stderr)
         print("\n".join(toks))
