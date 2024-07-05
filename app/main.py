@@ -20,6 +20,8 @@ def main():
         file_contents = file.read()
     exit_code = 0
     # Uncomment this block to pass the first stage
+    toks = []
+    errs = []
     if file_contents:
         line_no = 1
         for ch in file_contents:
@@ -46,12 +48,15 @@ def main():
                 ch_name = "STAR"
             elif ch == "\n":
                 line_no += 1
+                continue
             else:
-                print(f"[line {line_no}] Error: Unexpected character: {ch}")
+                errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
                 continue
-            print(f"{ch_name} {ch} null")
-        print("EOF  null") # Placeholder, remove this line when implementing the scanner
+            toks.append(f"{ch_name} {ch} null")
+        toks.append("EOF  null") # Placeholder, remove this line when implementing the scanner
+        print("\n".join(errs), file=sys.stderr)
+        print("\n".join(toks))
     else:
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
     exit(exit_code)
