@@ -31,6 +31,18 @@ def main():
                 ch_name = "LEFT_BRACE"
             elif ch == "}":
                 ch_name = "RIGHT_BRACE"
+            elif ch == ",":
+                ch_name = "COMMA"
+            elif ch == ".":
+                ch_name = "DOT"
+            elif ch == "+":
+                ch_name = "PLUS"
+            elif ch == "-":
+                ch_name = "MINUS"
+            elif ch == ";":
+                ch_name = "MINUS"
+            elif ch == "*":
+                ch_name = "STAR"
             else:
                 continue
             print(f"{ch_name} {ch} null")
