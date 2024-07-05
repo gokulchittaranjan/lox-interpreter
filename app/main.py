@@ -30,6 +30,7 @@ def main():
             else:
                 continue
             print(f"{ch_name} {ch} null")
+        print("EOF  null") # Placeholder, remove this line when implementing the scanner
     else:
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
 
