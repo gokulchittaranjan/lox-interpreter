@@ -22,6 +22,7 @@ def main():
     # Uncomment this block to pass the first stage
     toks = []
     errs = []
+    reserved_keywords = ["and", "class", "else", "false", "for", "fun", "if", "nil", "or", "print", "return", "super", "this", "true", "var", "while"]
     if file_contents:
         line_no = 1
         ptr = 0
@@ -46,7 +47,10 @@ def main():
                     literal.append(ch)
                 else:
                     string = ''.join(literal)
-                    toks.append(f'STRING "{string}" {string}')
+                    if string in reserved_keywords:
+                        toks.append(f'{string.upper()} {string} null')    
+                    else:
+                        toks.append(f'STRING "{string}" {string}')
                     inside_string = False
                     literal = []
                 ptr += 1
