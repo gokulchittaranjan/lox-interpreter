@@ -21,6 +21,7 @@ def main():
 
     # Uncomment this block to pass the first stage
     if file_contents:
+        line_no = 1
         for ch in file_contents:
             ch_name = ""
             if ch == "(":
@@ -43,8 +44,10 @@ def main():
                 ch_name = "SEMICOLON"
             elif ch == "*":
                 ch_name = "STAR"
+            elif ch == "\n":
+                line_no += 1
             else:
-                continue
+                print(f"[line {line_no}] Error: Unexpected character: {ch}")
             print(f"{ch_name} {ch} null")
         print("EOF  null") # Placeholder, remove this line when implementing the scanner
     else:
